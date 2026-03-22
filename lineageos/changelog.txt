@@ -1,0 +1,28 @@
+Device: S666LN (Itel RS4)
+Build Date: 22 March 2026
+
+🚀 Device Changelog:
+
+===== 20260322 =====
+- vibrator: persistent CallbackWorker with wait_until(), cancel-token dispatch, deterministic off() cleanup
+- vibrator: rate-limit verbose logs to ~1Hz
+- vibrator: port CallbackWorker to hw-mtk
+- lights: demote backlight logs to DEBUG; rate-limit 1Hz (~60 write()/sec cut)
+- thermal: fix threadLoop lockup from std::max(0, overflow) → pollOnce(0) tight loop
+- thermal: fix severity timer miss (> → >=)
+- thermal: fix NL_CB_SEQ_CHECK done=1 causing 80% thermal event loss during burst
+- thermal: fix sleep_ms_ indeterminate init; clamp timeout_remaining underflow
+- thermal: add spurious wakeup guard; remove dead nlSeqCheckHandle
+- memtrack: fix sscanf %ld UB on ILP32; use PRId64 for portable GPU memory accounting
+- aidl: demote power HAL logs to VERBOSE (~30 write()/sec cut)
+- sepolicy: allow 884 legitimate AVC denials across HAL domains
+- sepolicy: fix missed denials; allow thermal HAL lookup, vendor_init IMS/BT props, cameraserver dmabuf, Goodix fingerprint data
+- sepolicy: allow hal_vibrator_default sysfs_vibrator r/w for gain-based amplitude
+- sepolicy: dontaudit 2089 neverallow'd hits; fix fsck_untrusted vold_device access
+- prop: seed haptics gain/duration defaults; disable connsys/wlan logging
+- prop: clean up properties
+- proprietary-files: import libmtkcam_{3rdparty.customer,metastore} from vendor/lib64/mt6789/
+- DRM: install clearkey apex; drop liboemcrypto → L3 fallback (fixes streaming)
+- Switch to AIDL Codec2
+- blobs: update to 251212V1661
+- audio: drop Dolby DS2 DAP (CPU/thermal overhead, no benefit on MT6789)
